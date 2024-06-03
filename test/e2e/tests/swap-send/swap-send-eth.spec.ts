@@ -47,6 +47,7 @@ describe('Swap-Send ETH', function () {
             ['0', '0'],
           );
 
+          await driver.delay(2000);
           await swapSendPage.searchAndSelectToken(NATIVE_TOKEN_SYMBOL, 'src');
           await swapSendPage.fillAmountInput('1');
 

@@ -36,6 +36,7 @@ export class SwapSendPage {
     );
     const indexOfButtonToClick = isDest ? 1 : 0;
     await buttons[indexOfButtonToClick].click();
+    await this.driver.delay(4000);
     await this.driver.waitForSelector(
       '[data-testid="asset-picker-modal-search-input"]',
     );
