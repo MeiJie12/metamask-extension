@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { AlertActionHandlerProvider } from '../../../components/app/alert-system/contexts/alertActionHandler';
 import { Footer } from '../components/confirm/footer';
 import { Header } from '../components/confirm/header';
@@ -8,12 +8,12 @@ import ScrollToBottom from '../components/confirm/scroll-to-bottom';
 import { MMISignatureMismatchBanner } from '../../../components/app/mmi-signature-mismatch-banner';
 ///: END:ONLY_INCLUDE_IF
 import { Page } from '../../../components/multichain/pages/page';
+import { LedgerInfo } from '../components/confirm/ledger-info';
 import { Nav } from '../components/confirm/nav';
 import { Title } from '../components/confirm/title';
+import setConfirmationAlerts from '../hooks/setConfirmationAlerts';
 import setCurrentConfirmation from '../hooks/setCurrentConfirmation';
 import syncConfirmPath from '../hooks/syncConfirmPath';
-import { LedgerInfo } from '../components/confirm/ledger-info';
-import setConfirmationAlerts from '../hooks/setConfirmationAlerts';
 import useConfirmationAlertActions from '../hooks/useConfirmationAlertActions';
 
 const Confirm = () => {
@@ -21,7 +21,7 @@ const Confirm = () => {
   syncConfirmPath();
   setConfirmationAlerts();
   const processAction = useConfirmationAlertActions();
-  const [showAdvancedDetails, setShowAdvancedDetails] = React.useState(false);
+  const [showAdvancedDetails, setShowAdvancedDetails] = useState(false);
 
   return (
     <AlertActionHandlerProvider onProcessAction={processAction}>
