@@ -530,6 +530,9 @@
   "attributions": {
     "message": "参与者"
   },
+  "auroraRpcDeprecationMessage": {
+    "message": "Infura RPC（远程过程调用）URL 不再支持 Aurora。"
+  },
   "authorizedPermissions": {
     "message": "您已授权以下权限"
   },

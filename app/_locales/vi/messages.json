@@ -530,6 +530,9 @@
   "attributions": {
     "message": "Ghi nhận đóng góp"
   },
+  "auroraRpcDeprecationMessage": {
+    "message": "URL Infura RPC không còn hỗ trợ Aurora nữa."
+  },
   "authorizedPermissions": {
     "message": "Bạn đã cấp các quyền sau đây"
   },

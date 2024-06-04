@@ -531,7 +531,7 @@
     "message": "Atribuições"
   },
   "auroraRpcDeprecationMessage": {
-    "message": "O URL de RPC (Chamadas de Procedimento Remoto) da Infura não oferece mais suporte à rede Aurora."
+    "message": "A URL de RPC (Chamadas de Procedimento Remoto) da Infura não suporta mais Aurora."
   },
   "authorizedPermissions": {
     "message": "Você concedeu as seguintes permissões"
