@@ -48,6 +48,9 @@ async function runJest(
   if (coverage) {
     options.push('--coverage');
   }
+  if (silent) {
+    options.push('--silent')
+  }
   // We use jest's new 'shard' feature to run tests in parallel across many
   // different processes if totalShards > 1
   if (totalShards > 1) {
@@ -138,6 +141,14 @@ async function start() {
           description:
             'The safer way to increase performance locally, sets the number of processes to use internally. Recommended 2',
           type: 'number',
+        })
+        .option('silent', {
+          alias: ['s'],
+          default: false,
+          demandOption: false,
+          description:
+            'Disable logging in jest tests. Recommended for CI runs but not for local development',
+          type: 'boolean',
         })
         .strict(),
   );
