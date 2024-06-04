@@ -36,14 +36,28 @@ export class SwapSendPage {
     );
     const indexOfButtonToClick = isDest ? 1 : 0;
     await buttons[indexOfButtonToClick].click();
+
+    // Clear search input
+    const searchInputField = await this.driver.waitForSelector(
+      '[data-testid="asset-picker-modal-search-input"]',
+    );
+    const searchValue = await searchInputField.getProperty('value');
+    if (searchValue) {
+      const clearButton = await this.driver.findElement(
+        '[data-testid="text-field-search-clear-button"]',
+      );
+      if (clearButton) {
+        await clearButton.click();
+      }
+    }
+
     await this.driver.delay(4000);
-    await this.driver.waitForSelector(
-      '[data-testid="asset-picker-modal-search-input"]',
-    );
-    await this.driver.fill(
-      '[data-testid="asset-picker-modal-search-input"]',
-      symbol,
-    );
+    for (const i of symbol) {
+      const f = await this.driver.waitForSelector(
+        '[data-testid="asset-picker-modal-search-input"]',
+      );
+      await f.press(i);
+    }
     // Verify that only matching tokens are listed
     assert.equal(
       (
