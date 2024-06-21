@@ -52,6 +52,8 @@ export default class AppStateController extends EventEmitter {
       showAccountBanner: true,
       trezorModel: null,
       currentPopupId: undefined,
+      newPrivacyPolicyToastClickedOrClosed: null,
+      newPrivacyPolicyToastShownDate: null,
       // This key is only used for checking if the user had set advancedGasFee
       // prior to Migration 92.3 where we split out the setting to support
       // multiple networks.
@@ -181,6 +183,18 @@ export default class AppStateController extends EventEmitter {
   setSurveyLinkLastClickedOrClosed(time) {
     this.store.updateState({
       surveyLinkLastClickedOrClosed: time,
+    });
+  }
+
+  setNewPrivacyPolicyToastClickedOrClosed() {
+    this.store.updateState({
+      newPrivacyPolicyToastClickedOrClosed: true,
+    });
+  }
+
+  setNewPrivacyPolicyToastShownDate(time) {
+    this.store.updateState({
+      newPrivacyPolicyToastShownDate: time,
     });
   }
 
