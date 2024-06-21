@@ -8,6 +8,7 @@ import { LedgerTransportTypes } from '../../../shared/constants/hardware-wallets
 import { ThemeType } from '../../../shared/constants/preferences';
 
 const mainNetworks = {
+  [CHAIN_IDS.HIZOCO]:true,
   [CHAIN_IDS.MAINNET]: true,
   [CHAIN_IDS.LINEA_MAINNET]: true,
 };

@@ -8,6 +8,18 @@ import {
 
 const defaultNetworksData = [
   {
+    labelKey: NETWORK_TYPES.HIZOCO,
+    iconColor: '#29B6AF',
+    providerType: NETWORK_TYPES.HIZOCO,
+    rpcUrl: getRpcUrl({
+      network: NETWORK_TYPES.HIZOCO,
+      excludeProjectId: true,
+    }),
+    chainId: CHAIN_IDS.HIZOCO,
+    ticker: CURRENCY_SYMBOLS.HZC,
+    blockExplorerUrl: 'https://hizoco.net/rpc',
+  },
+  {
     labelKey: NETWORK_TYPES.MAINNET,
     // eslint-disable-next-line @metamask/design-tokens/color-no-hex
     iconColor: '#29B6AF', // third party color

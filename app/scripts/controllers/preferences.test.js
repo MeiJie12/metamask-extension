@@ -366,6 +366,7 @@ describe('preferences controller', () => {
     it('should have default value combined', () => {
       const state = preferencesController.store.getState();
       expect(state.incomingTransactionsPreferences).toStrictEqual({
+        [CHAIN_IDS.HIZOCO]:true,
         [CHAIN_IDS.MAINNET]: true,
         [CHAIN_IDS.LINEA_MAINNET]: true,
         [NETWORK_CONFIGURATION_DATA[addedNonTestNetworks[0]].chainId]: true,
@@ -384,6 +385,7 @@ describe('preferences controller', () => {
       );
       const state = preferencesController.store.getState();
       expect(state.incomingTransactionsPreferences).toStrictEqual({
+        [CHAIN_IDS.HIZOCO]:true,
         [CHAIN_IDS.MAINNET]: true,
         [CHAIN_IDS.LINEA_MAINNET]: false,
         [NETWORK_CONFIGURATION_DATA[addedNonTestNetworks[0]].chainId]: true,

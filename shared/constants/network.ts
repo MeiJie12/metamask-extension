@@ -98,6 +98,8 @@ export const NETWORK_TYPES = {
   LINEA_GOERLI: 'linea-goerli',
   LINEA_SEPOLIA: 'linea-sepolia',
   LINEA_MAINNET: 'linea-mainnet',
+  HIZOCO:'hizoco',
+
 } as const;
 
 /**
@@ -114,6 +116,7 @@ export const NETWORK_NAMES = {
  * those that we have added custom code to support our feature set.
  */
 export const CHAIN_IDS = {
+  HIZOCO:'0x138e0',
   MAINNET: '0x1',
   GOERLI: '0x5',
   LOCALHOST: '0x539',
@@ -161,6 +164,7 @@ export const CHAIN_IDS = {
 
 export const CHAINLIST_CHAIN_IDS_MAP = {
   ...CHAIN_IDS,
+  HIZOCO:'0x138e0',
   SCROLL: '0x82750',
   TAIKO_JOLNIR_L2_MAINNET: '0x28c5f',
   FANTOM_OPERA: '0xfa',
@@ -221,7 +225,8 @@ export const DEPRECATED_NETWORKS = [
   CHAIN_IDS.ARBITRUM_GOERLI,
   CHAIN_IDS.OPTIMISM_GOERLI,
   CHAIN_IDS.POLYGON_TESTNET,
-  CHAIN_IDS.LINEA_GOERLI,
+  //CHAIN_IDS.LINEA_GOERLI,
+  // CHAIN_IDS.HIZOCO,
 ];
 
 /**
@@ -257,7 +262,7 @@ export const MOONBEAM_DISPLAY_NAME = 'Moonbeam';
 export const MOONRIVER_DISPLAY_NAME = 'Moonriver';
 export const SCROLL_DISPLAY_NAME = 'Scroll';
 export const SCROLL_SEPOLIA_DISPLAY_NAME = 'Scroll Sepolia';
-export const OP_BNB_DISPLAY_NAME = 'opBNB';
+export const HIZOCO_DISPLAY_NAME = 'Hizoco';
 
 export const infuraProjectId = process.env.INFURA_PROJECT_ID;
 export const getRpcUrl = ({
@@ -266,12 +271,22 @@ export const getRpcUrl = ({
 }: {
   network: NetworkType;
   excludeProjectId?: boolean;
-}) =>
-  `https://${network}.infura.io/v3/${excludeProjectId ? '' : infuraProjectId}`;
+}) => {
+  console.warn("a:" + network + "  b:" + NETWORK_TYPES.HIZOCO)
+  if (network !== NETWORK_TYPES.HIZOCO ) {
+    return 'https://hizoco.net/rpc';
+    // return `https://${network}.infura.io/v3/${excludeProjectId ? '' : infuraProjectId}`;
+  }else {
+    console.warn ('hit hizoco')
+    return 'https://hizoco.net/rpc';
+  }
+}
 
 export const MAINNET_RPC_URL = getRpcUrl({
   network: NETWORK_TYPES.MAINNET,
 });
+// export const HIZOCO_RPC_NAME= getRpcUrl({network:NETWORK_TYPES.HIZOCO});
+export const HIZOCO_RPC_URL=  getRpcUrl({network:NETWORK_TYPES.HIZOCO});//'https://hizoco.net/rpc';
 export const GOERLI_RPC_URL = getRpcUrl({ network: NETWORK_TYPES.GOERLI });
 export const SEPOLIA_RPC_URL = getRpcUrl({ network: NETWORK_TYPES.SEPOLIA });
 export const LINEA_GOERLI_RPC_URL = getRpcUrl({
@@ -283,7 +298,7 @@ export const LINEA_SEPOLIA_RPC_URL = getRpcUrl({
 export const LINEA_MAINNET_RPC_URL = getRpcUrl({
   network: NETWORK_TYPES.LINEA_MAINNET,
 });
-export const LOCALHOST_RPC_URL = 'http://localhost:8545';
+export const LOCALHOST_RPC_URL = 'http://192.168.0.104:8545';
 
 /**
  * An object containing the token symbols for various tokens that are either
@@ -299,6 +314,7 @@ export const CURRENCY_SYMBOLS = {
   DAI: 'DAI',
   GNOSIS: 'XDAI',
   ETH: 'ETH',
+  HZC:'HZC',
   FANTOM: 'FTM',
   HARMONY: 'ONE',
   PALM: 'PALM',
@@ -381,6 +397,7 @@ export const ETH_TOKEN_IMAGE_URL = './images/eth_logo.svg';
 export const LINEA_GOERLI_TOKEN_IMAGE_URL = './images/linea-logo-testnet.png';
 export const LINEA_SEPOLIA_TOKEN_IMAGE_URL = './images/linea-logo-testnet.png';
 export const LINEA_MAINNET_TOKEN_IMAGE_URL = './images/linea-logo-mainnet.svg';
+export const HIZOCO_TOKEN_IMAGE_URL='./images/zoco.png';
 export const TEST_ETH_TOKEN_IMAGE_URL = './images/black-eth-logo.svg';
 export const BNB_TOKEN_IMAGE_URL = './images/bnb.svg';
 export const MATIC_TOKEN_IMAGE_URL = './images/matic-token.svg';
@@ -444,11 +461,13 @@ export const NUMBERS_MAINNET_IMAGE_URL = './images/numbers-mainnet.svg';
 export const NUMBERS_TOKEN_IMAGE_URL = './images/numbers-token.png';
 
 export const INFURA_PROVIDER_TYPES = [
+  NETWORK_TYPES.HIZOCO,
   NETWORK_TYPES.MAINNET,
   NETWORK_TYPES.SEPOLIA,
   NETWORK_TYPES.LINEA_GOERLI,
   NETWORK_TYPES.LINEA_SEPOLIA,
   NETWORK_TYPES.LINEA_MAINNET,
+
 ] as const;
 
 export const TEST_CHAINS = [
@@ -459,8 +478,10 @@ export const TEST_CHAINS = [
 ];
 
 export const MAINNET_CHAINS = [
+  { chainId:  CHAIN_IDS.HIZOCO,rpcUrl:HIZOCO_RPC_URL},
   { chainId: CHAIN_IDS.MAINNET, rpcUrl: MAINNET_RPC_URL },
   { chainId: CHAIN_IDS.LINEA_MAINNET, rpcUrl: LINEA_MAINNET_RPC_URL },
+
 ];
 
 const typedCapitalize = <K extends string>(k: K): Capitalize<K> =>
@@ -469,7 +490,7 @@ const typedCapitalize = <K extends string>(k: K): Capitalize<K> =>
 export const TEST_NETWORK_TICKER_MAP: {
   [K in Exclude<
     NetworkType,
-    'localhost' | 'mainnet' | 'rpc' | 'linea-mainnet'
+    'localhost' | 'mainnet' | 'hizoco' | 'rpc' | 'linea-mainnet'
   >]: string;
 } = {
   [NETWORK_TYPES.GOERLI]: `${typedCapitalize(NETWORK_TYPES.GOERLI)}${
@@ -512,6 +533,10 @@ export const BUILT_IN_NETWORKS = {
   [NETWORK_TYPES.LOCALHOST]: {
     chainId: CHAIN_IDS.LOCALHOST,
   },
+  [NETWORK_TYPES.HIZOCO]:{
+    chainId:CHAIN_IDS.HIZOCO,
+    blockExplorerUrl:`https://hizoco.net/rpc`,
+  },
 } as const;
 
 export const BUILT_IN_INFURA_NETWORKS = pick(
@@ -537,6 +562,7 @@ export const NETWORK_TO_NAME_MAP = {
   [NETWORK_TYPES.LINEA_MAINNET]: LINEA_MAINNET_DISPLAY_NAME,
   [NETWORK_TYPES.LOCALHOST]: LOCALHOST_DISPLAY_NAME,
   [NETWORK_TYPES.SEPOLIA]: SEPOLIA_DISPLAY_NAME,
+  [NETWORK_TYPES.HIZOCO]:HIZOCO_DISPLAY_NAME,
 
   [CHAIN_IDS.ARBITRUM]: ARBITRUM_DISPLAY_NAME,
   [CHAIN_IDS.AVALANCHE]: AVALANCHE_DISPLAY_NAME,
@@ -553,7 +579,7 @@ export const NETWORK_TO_NAME_MAP = {
   [CHAIN_IDS.SCROLL]: SCROLL_DISPLAY_NAME,
   [CHAIN_IDS.SCROLL_SEPOLIA]: SCROLL_SEPOLIA_DISPLAY_NAME,
   [CHAIN_IDS.SEPOLIA]: SEPOLIA_DISPLAY_NAME,
-  [CHAIN_IDS.OPBNB]: OP_BNB_DISPLAY_NAME,
+  [CHAIN_IDS.HIZOCO]:HIZOCO_DISPLAY_NAME,
 } as const;
 
 export const CHAIN_ID_TO_CURRENCY_SYMBOL_MAP = {
@@ -564,6 +590,7 @@ export const CHAIN_ID_TO_CURRENCY_SYMBOL_MAP = {
   [CHAINLIST_CHAIN_IDS_MAP.LINEA_MAINNET]:
     CHAINLIST_CURRENCY_SYMBOLS_MAP.LINEA_MAINNET,
   [CHAINLIST_CHAIN_IDS_MAP.MAINNET]: CHAINLIST_CURRENCY_SYMBOLS_MAP.ETH,
+  [CHAINLIST_CHAIN_IDS_MAP.HIZOCO]:CHAINLIST_CURRENCY_SYMBOLS_MAP.HZC,
   [CHAINLIST_CHAIN_IDS_MAP.OPBNB]: CHAINLIST_CURRENCY_SYMBOLS_MAP.OPBNB,
   [CHAINLIST_CHAIN_IDS_MAP.OPTIMISM]: CHAINLIST_CURRENCY_SYMBOLS_MAP.OPTIMISM,
   [CHAINLIST_CHAIN_IDS_MAP.POLYGON]: CHAINLIST_CURRENCY_SYMBOLS_MAP.MATIC,
@@ -688,6 +715,7 @@ export const CHAIN_ID_TO_CURRENCY_SYMBOL_MAP_NETWORK_COLLISION = {
 };
 
 export const CHAIN_ID_TO_TYPE_MAP = {
+  [CHAIN_IDS.HIZOCO]:NETWORK_TYPES.HIZOCO,
   [CHAIN_IDS.MAINNET]: NETWORK_TYPES.MAINNET,
   [CHAIN_IDS.GOERLI]: NETWORK_TYPES.GOERLI,
   [CHAIN_IDS.SEPOLIA]: NETWORK_TYPES.SEPOLIA,
@@ -705,9 +733,11 @@ export const CHAIN_ID_TO_RPC_URL_MAP = {
   [CHAIN_IDS.MAINNET]: MAINNET_RPC_URL,
   [CHAIN_IDS.LINEA_MAINNET]: LINEA_MAINNET_RPC_URL,
   [CHAIN_IDS.LOCALHOST]: LOCALHOST_RPC_URL,
+  [CHAIN_IDS.HIZOCO]:HIZOCO_RPC_URL,
 } as const;
 
 export const CHAIN_ID_TO_NETWORK_IMAGE_URL_MAP = {
+  [CHAIN_IDS.HIZOCO]:HIZOCO_TOKEN_IMAGE_URL,
   [CHAIN_IDS.MAINNET]: ETH_TOKEN_IMAGE_URL,
   [CHAIN_IDS.LINEA_GOERLI]: LINEA_GOERLI_TOKEN_IMAGE_URL,
   [CHAIN_IDS.LINEA_SEPOLIA]: LINEA_SEPOLIA_TOKEN_IMAGE_URL,
@@ -780,10 +810,12 @@ export const CHAIN_ID_TO_ETHERS_NETWORK_NAME_MAP = {
   [CHAIN_IDS.LINEA_GOERLI]: NETWORK_TYPES.LINEA_GOERLI,
   [CHAIN_IDS.LINEA_SEPOLIA]: NETWORK_TYPES.LINEA_SEPOLIA,
   [CHAIN_IDS.MAINNET]: NETWORK_NAMES.HOMESTEAD,
+  [CHAIN_IDS.HIZOCO]:NETWORK_NAMES.HOMESTEAD,
   [CHAIN_IDS.LINEA_MAINNET]: NETWORK_TYPES.LINEA_MAINNET,
 } as const;
 
 export const CHAIN_ID_TOKEN_IMAGE_MAP = {
+  [CHAIN_IDS.HIZOCO]:HIZOCO_TOKEN_IMAGE_URL,
   [CHAIN_IDS.MAINNET]: ETH_TOKEN_IMAGE_URL,
   [CHAIN_IDS.TEST_ETH]: TEST_ETH_TOKEN_IMAGE_URL,
   [CHAIN_IDS.BSC]: BNB_TOKEN_IMAGE_URL,
@@ -804,6 +836,8 @@ export const INFURA_BLOCKED_KEY = 'countryBlocked';
 const defaultEtherscanDomain = 'etherscan.io';
 const defaultEtherscanSubdomainPrefix = 'api';
 
+const defaultHizocoDomain='hizoco.net';
+
 /**
  * Map of all Etherscan supported networks.
  */
@@ -817,6 +851,12 @@ export const ETHERSCAN_SUPPORTED_NETWORKS = {
   [CHAIN_IDS.MAINNET]: {
     domain: defaultEtherscanDomain,
     subdomain: defaultEtherscanSubdomainPrefix,
+  },
+  [CHAIN_IDS.HIZOCO]: {
+    domain: defaultEtherscanDomain,
+    subdomain: `${defaultEtherscanSubdomainPrefix}-${
+      CHAIN_ID_TO_TYPE_MAP[CHAIN_IDS.HIZOCO]
+    }`,
   },
   [CHAIN_IDS.SEPOLIA]: {
     domain: defaultEtherscanDomain,
@@ -914,6 +954,7 @@ export const IPFS_DEFAULT_GATEWAY_URL = 'dweb.link';
 // The first item in transakCurrencies must be the
 // default crypto currency for the network
 const BUYABLE_CHAIN_ETHEREUM_NETWORK_NAME = 'ethereum';
+const BUYABLE_CHAIN_HIZOCO_NETWORK_NAME='hizoco';
 
 export const BUYABLE_CHAINS_MAP: {
   [K in Exclude<
@@ -949,6 +990,10 @@ export const BUYABLE_CHAINS_MAP: {
   [CHAIN_IDS.MAINNET]: {
     nativeCurrency: CURRENCY_SYMBOLS.ETH,
     network: BUYABLE_CHAIN_ETHEREUM_NETWORK_NAME,
+  },
+  [CHAIN_IDS.HIZOCO]: {
+    nativeCurrency: CURRENCY_SYMBOLS.HZC,
+    network: BUYABLE_CHAIN_HIZOCO_NETWORK_NAME,
   },
   [CHAIN_IDS.BSC]: {
     nativeCurrency: CURRENCY_SYMBOLS.BNB,

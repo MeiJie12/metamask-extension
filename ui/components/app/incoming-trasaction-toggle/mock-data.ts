@@ -12,6 +12,18 @@ export const ALL_NETWORKS_DATA = [
     removable: false,
   },
   {
+    chainId: '0x138e0',
+    nickname: 'Hizoco',
+    rpcUrl: 'https://hizoco.net/rpc',
+    rpcPrefs: {
+      imageUrl: './images/zoco.png',
+    },
+    providerType: 'hizoco',
+    ticker: 'HZC',
+    id: 'hizoco',
+    removable: false,
+  },
+  {
     chainId: '0xe708',
     nickname: 'Linea Mainnet',
     rpcUrl:

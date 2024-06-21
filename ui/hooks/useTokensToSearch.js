@@ -62,6 +62,7 @@ export function getRenderableTokenData(
 
   const tokenIconUrl =
     (symbol === CURRENCY_SYMBOLS.ETH && chainId === CHAIN_IDS.MAINNET) ||
+    (symbol === CURRENCY_SYMBOLS.HZC && chainId === CHAIN_IDS.HIZOCO) ||
     (symbol === CURRENCY_SYMBOLS.ETH && chainId === CHAIN_IDS.SEPOLIA) ||
     (symbol === CURRENCY_SYMBOLS.BNB && chainId === CHAIN_IDS.BSC) ||
     (symbol === CURRENCY_SYMBOLS.MATIC && chainId === CHAIN_IDS.POLYGON) ||

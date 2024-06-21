@@ -5,6 +5,7 @@ import {
   CHAIN_ID_TO_NETWORK_IMAGE_URL_MAP,
   FEATURED_RPCS,
   NETWORK_TO_NAME_MAP,
+  NETWORK_TYPES,
 } from './network';
 
 describe('NetworkConstants', () => {
@@ -21,6 +22,7 @@ describe('NetworkConstants', () => {
     );
     expect(NETWORK_TO_NAME_MAP[CHAIN_IDS.BSC]).toBe('Binance Smart Chain');
     expect(NETWORK_TO_NAME_MAP[CHAIN_IDS.MAINNET]).toBe('Ethereum Mainnet');
+    expect(NETWORK_TO_NAME_MAP[CHAIN_IDS.HIZOCO]).toBe('Hizoco');
     expect(NETWORK_TO_NAME_MAP[CHAIN_IDS.LINEA_MAINNET]).toBe('Linea Mainnet');
     expect(NETWORK_TO_NAME_MAP[CHAIN_IDS.OPTIMISM]).toBe('OP Mainnet');
     expect(NETWORK_TO_NAME_MAP[CHAIN_IDS.POLYGON]).toBe('Polygon');

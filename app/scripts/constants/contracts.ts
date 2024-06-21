@@ -2,6 +2,7 @@ import { CHAIN_IDS } from '../../../shared/constants/network';
 
 export const SINGLE_CALL_BALANCES_ADDRESSES = {
   [CHAIN_IDS.MAINNET]: '0xb1f8e55c7f64d203c1400b9d8555d050f94adf39',
+  [CHAIN_IDS.HIZOCO]:'0xb1f8e55c7f64d203c1400b9d8555d050f94adf39',
   [CHAIN_IDS.GOERLI]: '0x9788C4E93f9002a7ad8e72633b11E8d1ecd51f9b',
   // TODO(SEPOLIA) There is currently no balance call address for Sepolia
   [CHAIN_IDS.SEPOLIA]: '',

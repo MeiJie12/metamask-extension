@@ -987,6 +987,9 @@
   "connectingToMainnet": {
     "message": "正在连接到以太坊主网"
   },
+  "connectingToHizoco":{
+    "message":"正在连接到 Hizoco 网络"
+  },
   "connectingToSepolia": {
     "message": "正在连接Sepolia测试网络"
   },

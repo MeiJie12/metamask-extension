@@ -386,7 +386,7 @@ export default class ConfirmApproveContent extends Component {
       this.props;
     const useBlockExplorer =
       rpcPrefs?.blockExplorerUrl ||
-      [...TEST_CHAINS, CHAIN_IDS.MAINNET, CHAIN_IDS.LINEA_MAINNET].includes(
+      [...TEST_CHAINS, CHAIN_IDS.MAINNET,CHAIN_IDS.HIZOCO, CHAIN_IDS.LINEA_MAINNET].includes(
         chainId,
       );
 

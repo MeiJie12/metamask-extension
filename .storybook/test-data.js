@@ -666,6 +666,7 @@ const state = {
     },
     incomingTransactionsPreferences: {
       [CHAIN_IDS.MAINNET]: true,
+      [CHAIN_IDS.HIZOCO]:true,
       [CHAIN_IDS.GOERLI]: false,
       [CHAIN_IDS.OPTIMISM_TESTNET]: false,
       [CHAIN_IDS.AVALANCHE_TESTNET]: true,
@@ -1785,6 +1786,17 @@ export const networkList = [
     providerType: 'mainnet',
     rpcUrl: 'https://mainnet.infura.io/v3/',
     ticker: 'ETH',
+    viewOnly: true,
+  },
+  {
+    blockExplorerUrl: 'https://hizoco.net/rpc',
+    chainId: '0x138e0',
+    iconColor: 'var(--hizoco)',
+    isATestNetwork: false,
+    labelKey: 'hizoco',
+    providerType: 'hizoco',
+    rpcUrl: 'https://hizoco.net/rpc/',
+    ticker: 'HZC',
     viewOnly: true,
   },
   {

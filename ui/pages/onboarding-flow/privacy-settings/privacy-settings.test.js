@@ -34,6 +34,7 @@ describe('Privacy Settings Onboarding View', () => {
       },
       incomingTransactionsPreferences: {
         [CHAIN_IDS.MAINNET]: true,
+        [CHAIN_IDS.HIZOCO]:true,
         [CHAIN_IDS.LINEA_MAINNET]: false,
         [CHAIN_IDS.SEPOLIA]: false,
         [CHAIN_IDS.LINEA_GOERLI]: true,

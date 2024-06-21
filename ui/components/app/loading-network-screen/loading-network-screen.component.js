@@ -69,6 +69,8 @@ export default class LoadingNetworkScreen extends PureComponent {
     }
 
     switch (providerName) {
+      case NETWORK_TYPES.HIZOCO:
+        return t('connectingToHizoco');
       case NETWORK_TYPES.MAINNET:
         return t('connectingToMainnet');
       case NETWORK_TYPES.GOERLI:

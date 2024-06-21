@@ -55,7 +55,7 @@ export default function NftsItems({
   previouslyOwnedCollection = {},
   isModal = false,
   onCloseModal = {},
-  showTokenId = false,
+  showTokenId = true,
   displayPreviouslyOwnedCollection = true,
 }) {
   const dispatch = useDispatch();

@@ -18,6 +18,7 @@ import {
   SWAPS_CLIENT_ID,
   SWAPS_DEV_API_V2_BASE_URL,
   SwapsTokenObject,
+  HIZOCO,
 } from '../../../shared/constants/swaps';
 import {
   isSwapsDefaultTokenAddress,
@@ -670,6 +671,8 @@ export const getNetworkNameByChainId = (chainId: string): string => {
   switch (chainId) {
     case CHAIN_IDS.MAINNET:
       return ETHEREUM;
+    case CHAIN_IDS.HIZOCO:
+      return HIZOCO;
     case CHAIN_IDS.BSC:
       return BSC;
     case CHAIN_IDS.POLYGON:

@@ -34,7 +34,7 @@ import {
   TEST_NETWORK_TICKER_MAP,
   LINEA_GOERLI_TOKEN_IMAGE_URL,
   LINEA_MAINNET_DISPLAY_NAME,
-  LINEA_MAINNET_TOKEN_IMAGE_URL,
+
   CHAIN_ID_TO_NETWORK_IMAGE_URL_MAP,
   ARBITRUM_DISPLAY_NAME,
   OPTIMISM_DISPLAY_NAME,
@@ -43,13 +43,8 @@ import {
   CHAIN_ID_TOKEN_IMAGE_MAP,
   LINEA_SEPOLIA_TOKEN_IMAGE_URL,
   LINEA_SEPOLIA_DISPLAY_NAME,
-  CRONOS_DISPLAY_NAME,
-  CELO_DISPLAY_NAME,
-  GNOSIS_DISPLAY_NAME,
-  FANTOM_DISPLAY_NAME,
-  POLYGON_ZKEVM_DISPLAY_NAME,
-  MOONBEAM_DISPLAY_NAME,
-  MOONRIVER_DISPLAY_NAME,
+  HIZOCO_DISPLAY_NAME,
+  HIZOCO_TOKEN_IMAGE_URL,
 } from '../../shared/constants/network';
 import {
   WebHIDConnectedStatuses,
@@ -620,12 +615,36 @@ export function getGasIsLoading(state) {
 export function getNeverShowSwitchedNetworkMessage(state) {
   return state.metamask.switchedNetworkNeverShowMessage;
 }
+ // {
+      //   chainId: CHAIN_IDS.LINEA_MAINNET,
+      //   nickname: LINEA_MAINNET_DISPLAY_NAME,
+      //   rpcUrl: CHAIN_ID_TO_RPC_URL_MAP[CHAIN_IDS.LINEA_MAINNET],
+      //   rpcPrefs: {
+      //     imageUrl: LINEA_MAINNET_TOKEN_IMAGE_URL,
+      //   },
+      //   providerType: NETWORK_TYPES.LINEA_MAINNET,
+      //   ticker: TEST_NETWORK_TICKER_MAP[NETWORK_TYPES.LINEA_MAINNET],
+      //   id: NETWORK_TYPES.LINEA_MAINNET,
+      //   removable: false,
+      // },
 
 export const getNonTestNetworks = createDeepEqualSelector(
   getNetworkConfigurations,
   (networkConfigurations = {}) => {
     return [
       // Mainnet always first
+      {
+        chainId: CHAIN_IDS.HIZOCO,
+        nickname: HIZOCO_DISPLAY_NAME,
+        rpcUrl: CHAIN_ID_TO_RPC_URL_MAP[CHAIN_IDS.HIZOCO],
+        rpcPrefs: {
+          imageUrl: HIZOCO_TOKEN_IMAGE_URL,
+        },
+        providerType: NETWORK_TYPES.HIZOCO,
+        ticker: CURRENCY_SYMBOLS.HZC,
+        id: NETWORK_TYPES.HIZOCO,
+        removable: false,
+      },
       {
         chainId: CHAIN_IDS.MAINNET,
         nickname: MAINNET_DISPLAY_NAME,
@@ -638,18 +657,7 @@ export const getNonTestNetworks = createDeepEqualSelector(
         id: NETWORK_TYPES.MAINNET,
         removable: false,
       },
-      {
-        chainId: CHAIN_IDS.LINEA_MAINNET,
-        nickname: LINEA_MAINNET_DISPLAY_NAME,
-        rpcUrl: CHAIN_ID_TO_RPC_URL_MAP[CHAIN_IDS.LINEA_MAINNET],
-        rpcPrefs: {
-          imageUrl: LINEA_MAINNET_TOKEN_IMAGE_URL,
-        },
-        providerType: NETWORK_TYPES.LINEA_MAINNET,
-        ticker: TEST_NETWORK_TICKER_MAP[NETWORK_TYPES.LINEA_MAINNET],
-        id: NETWORK_TYPES.LINEA_MAINNET,
-        removable: false,
-      },
+
       // Custom networks added by the user
       ...Object.values(networkConfigurations)
         .filter(({ chainId }) => ![CHAIN_IDS.LOCALHOST].includes(chainId))
@@ -838,6 +846,11 @@ export function getIsMainnet(state) {
   const chainId = getCurrentChainId(state);
   return chainId === CHAIN_IDS.MAINNET;
 }
+export function getIsHizoco(state) {
+  const chainId = getCurrentChainId(state);
+  return chainId === CHAIN_IDS.HIZOCO;
+}
+
 
 export function getIsLineaMainnet(state) {
   const chainId = getCurrentChainId(state);
@@ -850,7 +863,7 @@ export function getIsTestnet(state) {
 }
 
 export function getIsNonStandardEthChain(state) {
-  return !(getIsMainnet(state) || getIsTestnet(state) || process.env.IN_TEST);
+  return !(getIsHizoco(state) || getIsMainnet(state) || getIsTestnet(state) || process.env.IN_TEST);
 }
 
 export function getPreferences({ metamask }) {
@@ -903,13 +916,14 @@ export function getDisabledRpcMethodPreferences(state) {
 
 export function getShouldShowFiat(state) {
   const isMainNet = getIsMainnet(state);
+  const isHizoco = getIsHizoco(state);
   const isLineaMainNet = getIsLineaMainnet(state);
   const isCustomNetwork = getIsCustomNetwork(state);
   const conversionRate = getConversionRate(state);
   const useCurrencyRateCheck = getUseCurrencyRateCheck(state);
   const { showFiatInTestnets } = getPreferences(state);
   return Boolean(
-    (isMainNet || isLineaMainNet || isCustomNetwork || showFiatInTestnets) &&
+    (isHizoco || isMainNet ||  isLineaMainNet || isCustomNetwork || showFiatInTestnets) &&
       useCurrencyRateCheck &&
       conversionRate,
   );
@@ -2064,6 +2078,8 @@ export const getTokenDetectionSupportNetworkByChainId = (state) => {
   switch (chainId) {
     case CHAIN_IDS.MAINNET:
       return MAINNET_DISPLAY_NAME;
+    case CHAIN_IDS.HIZOCO:
+      return HIZOCO_DISPLAY_NAME;
     case CHAIN_IDS.BSC:
       return BSC_DISPLAY_NAME;
     case CHAIN_IDS.POLYGON:
@@ -2112,6 +2128,7 @@ export function getIsDynamicTokenListAvailable(state) {
   const chainId = getCurrentChainId(state);
   return [
     CHAIN_IDS.MAINNET,
+    CHAIN_IDS.HIZOCO,
     CHAIN_IDS.BSC,
     CHAIN_IDS.POLYGON,
     CHAIN_IDS.AVALANCHE,
@@ -2168,9 +2185,10 @@ export function getNewTokensImportedError(state) {
  */
 export function getIsTokenDetectionInactiveOnMainnet(state) {
   const isMainnet = getIsMainnet(state);
+  const isHizoco=getIsHizoco(state);
   const useTokenDetection = getUseTokenDetection(state);
 
-  return !useTokenDetection && isMainnet;
+  return !useTokenDetection && isHizoco && isMainnet;
 }
 
 /**
@@ -2197,9 +2215,10 @@ export function getIsTokenDetectionSupported(state) {
 export function getIstokenDetectionInactiveOnNonMainnetSupportedNetwork(state) {
   const useTokenDetection = getUseTokenDetection(state);
   const isMainnet = getIsMainnet(state);
+  const isHizoco = getIsHizoco(state);
   const isDynamicTokenListAvailable = getIsDynamicTokenListAvailable(state);
 
-  return isDynamicTokenListAvailable && !useTokenDetection && !isMainnet;
+  return isDynamicTokenListAvailable && !useTokenDetection && !isHizoco && !isMainnet;
 }
 
 /**
